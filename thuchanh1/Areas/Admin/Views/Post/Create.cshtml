@@ -1,0 +1,62 @@
+﻿@using thuchanh1.Utilities;
+@model thuchanh1.Models.Post
+@{
+    Layout = "/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm mới bài viết</h2>
+    </div>
+    <form asp-action="Create" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Title">Title</label>
+                <input type="text" class="form-control mb-3" asp-for="Title">
+            </div>
+            <div class="form-group col-md-12">
+                <label asp-for="Abstract">Abstract</label>
+                <input type="text" class="form-control mb-3" asp-for="Abstract">
+            </div>
+            <div class="form-group col-md-12">
+                <label class="control-label">Images</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-success" type="button" onclick="openDialog()">Choose a picture</button>
+                    </div>
+                    <input type="text" class="form-control" asp-for="Images" id="file_input" aria-describedby="button-addon2">
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="Contents">Contents</label>
+                    <input type="text" class="form-control mb-3" asp-for="Contents">
+                </div>
+                <div class="form-group col-md-6 mt-3 mb-3">
+                    <label>
+                        @Html.CheckBox("IsAction",false)
+                        Hiển thị
+                    </label>
+                </div>
+                <div class="form-group d-none">
+                    <input asp-for="CreatedDate" class="form-control" value="@Function.getCurrentDate()"/>
+                </div>
+                <div class="form-group d-none">
+                    <input asp-for="PostOrder" class="form-control" value="1"/>
+                </div>
+                <div class="form-group d-none">
+                    <input asp-for="Category" class="form-control" value="1"/>
+                </div>
+                <div class="form-group d-none">
+                    <input asp-for="Statud" class="form-control" value="1"/>
+                </div>
+                <div class="form-group d-none">
+                    <input asp-for="Link" class="form-control" value="NULL"/>
+                </div>
+            </div>
+            <button type="submit" asp-controller="Post" asp-action="Edit" class="btn btn-lg btn-primary p-2"><i class="bi bi-file-plus-fill"></i>Lưu</button>
+            <a asp-controller="Post" asp-action="Edit" class="btn btn-lg btn-warning p-2">Quay lại</a>
+        </div>
+    </form>
+</main>
+@{
+    var summerNote = new thuchanh1.Areas.Admin.Models.SummerNote("#Contents");
+    <partial name="_SummerNote" model="summerNote"/>
+}
